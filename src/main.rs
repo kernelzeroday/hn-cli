@@ -19,32 +19,32 @@ enum Commands {
     /// Show top stories
     Top {
         /// Number of stories to show
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// Show new stories
     New {
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// Show best stories
     Best {
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// Show Ask HN stories
     Ask {
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// Show Show HN stories
     Show {
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// Show job stories
     Jobs {
-        #[arg(short = 'n', long, default_value = "10")]
+        #[arg(short = 'n', long, default_value = "30")]
         limit: usize,
     },
     /// View a story and its comments by ID
@@ -78,7 +78,7 @@ async fn main() {
         Some(Commands::Jobs { limit }) => cmd_story_list(&client, "jobs", limit, cli.json).await,
         Some(Commands::Story { id }) => cmd_story(&client, id, cli.json).await,
         Some(Commands::User { id }) => cmd_user(&client, &id, cli.json).await,
-        None => cmd_story_list(&client, "top", 10, cli.json).await,
+        None => cmd_story_list(&client, "top", 30, cli.json).await,
     };
 
     if let Err(e) = result {
