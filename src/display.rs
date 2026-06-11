@@ -66,20 +66,9 @@ pub fn story_domain(url: &Option<String>) -> String {
 }
 
 pub fn print_story_list(stories: &[Item], start: usize) {
-    let max_id_width = stories
-        .iter()
-        .map(|s| s.id.to_string().len())
-        .max()
-        .unwrap_or(1);
-
     for (i, story) in stories.iter().enumerate() {
         let num = format!("{}.", start + i);
-        let id_str = format!("[{:>width$}]", story.id, width = max_id_width);
-        print!(
-            "{} {} ",
-            num.color(colored::Color::BrightBlack),
-            id_str.dimmed()
-        );
+        print!("{} ", num.color(colored::Color::BrightBlack));
 
         let title = story.title.as_deref().unwrap_or("(no title)");
         print!("{}", title.color(colored::Color::White).bold());
@@ -96,11 +85,12 @@ pub fn print_story_list(stories: &[Item], start: usize) {
         let comments = story.descendants.unwrap_or(0);
 
         println!(
-            "   {} by {} {} | {} comments",
+            "   {} by {} {} | {} comments | id {}",
             format!("{} points", points).dimmed(),
             by.dimmed(),
             time.dimmed(),
-            comments.to_string().dimmed()
+            comments.to_string().dimmed(),
+            story.id.to_string().dimmed()
         );
     }
 }
