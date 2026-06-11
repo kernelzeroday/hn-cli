@@ -79,6 +79,10 @@ pub fn print_story_list(stories: &[Item], start: usize) {
         }
         println!();
 
+        if let Some(ref url) = story.url {
+            println!("   {}", url.dimmed());
+        }
+
         let points = story.score.unwrap_or(0);
         let by = story.by.as_deref().unwrap_or("unknown");
         let time = story.time.map(time_ago).unwrap_or_default();
