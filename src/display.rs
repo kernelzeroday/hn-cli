@@ -66,9 +66,20 @@ pub fn story_domain(url: &Option<String>) -> String {
 }
 
 pub fn print_story_list(stories: &[Item], start: usize) {
+    let max_id_width = stories
+        .iter()
+        .map(|s| s.id.to_string().len())
+        .max()
+        .unwrap_or(1);
+
     for (i, story) in stories.iter().enumerate() {
         let num = format!("{}.", start + i);
-        print!("{} ", num.color(colored::Color::BrightBlack));
+        let id_str = format!("[{:>width$}]", story.id, width = max_id_width);
+        print!(
+            "{} {} ",
+            num.color(colored::Color::BrightBlack),
+            id_str.dimmed()
+        );
 
         let title = story.title.as_deref().unwrap_or("(no title)");
         print!("{}", title.color(colored::Color::White).bold());
